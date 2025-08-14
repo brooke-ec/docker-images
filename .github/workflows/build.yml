@@ -8,18 +8,18 @@ on:
     branches:
       - main
     paths:
-      - yolks/**
+      - images/**
 
 jobs:
   build:
-    name: "yolks:${{ matrix.image }}"
+    name: "images:${{ matrix.image }}"
     permissions:
       packages: write
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        image: ["sfml"]
+        image: ["rclone-sync"]
 
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +30,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
-          context: ./yolks/${{ matrix.image }}
-          tags: ghcr.io/nimajnebec/yolks:${{ matrix.image }}
+          context: ./images/${{ matrix.image }}
+          tags: ghcr.io/brooke-ec/images:${{ matrix.image }}
           push: true
